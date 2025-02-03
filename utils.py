@@ -9,14 +9,14 @@ def parse_config_file(file_path: str) -> dict | None:
             for line in file:
                 line = line.strip()
                 
-                if line.startswith('linuxpath='):
-                    configurations["path"] = line.split('=', 1)[1]
-                if line.startswith('HOST='):
-                    configurations["host"] = line.split('=', 1)[1]
-                if line.startswith('PORT='):
-                    configurations["port"] = line.split('=', 1)[1]
-                if line.startswith('REREAD_ON_QUERY='):
-                    configurations["reread_on_query"] = line.split('=', 1)[1]
+                key, val = line.split('=', 1)
+                
+                if key in ['PORT', 'PAYLOAD_SIZE']:
+                    val = int(val)
+                
+                configurations[key] = val
+            
+            print(f'Server configuration dictionary: {configurations}')
             return configurations
     except FileNotFoundError:
         print(f"Error: Configuration file '{file_path}' not found.")
