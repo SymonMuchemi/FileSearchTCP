@@ -3,7 +3,8 @@
 
 import socket
 import concurrent.futures
-from utils import parse_config_file
+from utils import server_configurations
+from algorithms.naive import naive_search
 
 
 def handle_client(client_socket, address, payload_size=1024) -> None:
@@ -12,11 +13,26 @@ def handle_client(client_socket, address, payload_size=1024) -> None:
     try:
         while True:
             data = client_socket.recv(payload_size)
+            
             if not data:
                 print("No data reveived!")
                 break
+            
             print(f"Data received: {data}")
-            response = b"Message received"
+            
+            if type(data) == bytes:
+                data = data.decode('utf-8')
+            
+            isLineFound = naive_search(
+                server_configurations.get('linuxpath'),
+                data.decode('utf-8')
+            )
+            
+            if isLineFound:
+                response = b"STRING FOUND"
+            else:
+                response = b'STRING NOT FOUND'
+
             client_socket.sendall(response)
     except BrokenPipeError:
         print(f"Error: Broken pipe when sending data to {address}")
@@ -29,14 +45,12 @@ def handle_client(client_socket, address, payload_size=1024) -> None:
 
 def start_server() -> None:
     try:
-        configs = parse_config_file("./config/config.txt")
-
-        if not configs:
+        if not server_configurations:
             print("Server configurations missing")
             return
 
-        server_address: tuple = (configs.get("HOST"), configs.get("PORT"))
-        PAYLOAD_SIZE = configs.get("PAYLOAD_SIZE")
+        server_address: tuple = (server_configurations.get("HOST"), server_configurations.get("PORT"))
+        PAYLOAD_SIZE = server_configurations.get("PAYLOAD_SIZE")
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind(server_address)
@@ -52,14 +66,12 @@ def start_server() -> None:
 
 def start_server_with_threading() -> None:
     try:
-        configs = parse_config_file("./config/config.txt")
-
-        if not configs:
+        if not server_configurations:
             print("Server configurations missing")
             return
 
-        server_address: tuple = (configs.get("HOST"), configs.get("PORT"))
-        PAYLOAD_SIZE = configs.get("PAYLOAD_SIZE")
+        server_address: tuple = (server_configurations.get("HOST"), server_configurations.get("PORT"))
+        PAYLOAD_SIZE = server_configurations.get("PAYLOAD_SIZE")
 
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 

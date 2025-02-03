@@ -17,11 +17,14 @@ def parse_config_file(file_path: str) -> dict | None:
 
                 configurations[key] = val
 
-            print(f"Server configuration dictionary: {configurations}")
             return configurations
     except FileNotFoundError:
         print(f"Error: Configuration file '{file_path}' not found.")
+        return
     except Exception as e:
         print(f"Error parsing the configuration file: {e}")
+        return
 
     return None
+
+server_configurations =  parse_config_file('./config/config.txt')
