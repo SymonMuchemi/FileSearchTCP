@@ -1,4 +1,4 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 """ utilities """
 
 
@@ -6,18 +6,18 @@ def parse_config_file(file_path: str) -> dict | None:
     configurations = {}
 
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, "r") as file:
             for line in file:
                 line = line.strip()
 
-                key, val = line.split('=', 1)
+                key, val = line.split("=", 1)
 
-                if key in ['PORT', 'PAYLOAD_SIZE']:
+                if key in ["PORT", "PAYLOAD_SIZE"]:
                     val = int(val)
 
                 configurations[key] = val
 
-            print(f'Server configuration dictionary: {configurations}')
+            print(f"Server configuration dictionary: {configurations}")
             return configurations
     except FileNotFoundError:
         print(f"Error: Configuration file '{file_path}' not found.")
