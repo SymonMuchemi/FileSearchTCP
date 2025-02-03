@@ -4,6 +4,19 @@
 import socket
 from utils import parse_config_file
 
+def handle_client(client_socket, address) -> None:
+    print(f"Connection established with: {address}")
+    
+    try:
+        data = client_socket.recv(1024) # TODO: use variable
+        print(f'Data received: {data}')
+        server_response = b'Message received'
+        client_socket.sendall(server_response)
+    except Exception as e:
+        print(f"Error starting the server: {e}")
+    finally:
+        client_socket.close()
+        print(f"Connection with {address} closed")
 
 def start_server() -> None:
     try:
@@ -23,15 +36,7 @@ def start_server() -> None:
             while True:
                 conn, addr = s.accept()
                 
-                with conn:
-                    print(f"Connected by {addr}")
-                    
-                    while True:
-                        data: str = conn.recv(PAYLOAD_SIZE)
-                        
-                        if not data:
-                            break
-                        conn.sendall(data)
+                handle_client(conn, addr)
     except Exception as e:
         print(f"Error starting the server: {e}")
 
