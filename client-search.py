@@ -21,9 +21,9 @@ def start_client() -> None:
             s.connect(server_address)
             s.send(bytes(sys.argv[1], "utf-8"))
 
-            data = s.recv(PAYLOAD_SIZE)
+            response = s.recv(PAYLOAD_SIZE)
 
-            print(f"Server response: {data}")
+            print(f"Server response: {response}")
 
     except Exception as e:
         print(f"Error starting the client: {e}")

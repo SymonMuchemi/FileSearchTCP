@@ -11,29 +11,29 @@ def handle_client(client_socket, address, payload_size=1024) -> None:
     print(f"Connection established with: {address}")
 
     try:
-        while True:
-            data = client_socket.recv(payload_size)
-            
-            if not data:
-                print("No data reveived!")
-                break
-            
-            print(f"Data received: {data}")
-            
-            if type(data) == bytes:
-                data = data.decode('utf-8')
-            
-            isLineFound = naive_search(
-                server_configurations.get('linuxpath'),
-                data.decode('utf-8')
-            )
-            
-            if isLineFound:
-                response = b"STRING FOUND"
-            else:
-                response = b'STRING NOT FOUND'
+        data = client_socket.recv(payload_size)
+        
+        if data == '':
+            print("No data reveived!")
+            return
+        
+        print(f"Data received: {data}")
+        
+        if type(data) == bytes:
+            print('data type is bytes')
+            data = data.decode('utf-8')
+        
+        isLineFound = naive_search(
+            server_configurations.get('linuxpath'),
+            data
+        )
+        
+        if isLineFound:
+            response = b"STRING FOUND"
+        else:
+            response = b'STRING NOT FOUND'
 
-            client_socket.sendall(response)
+        client_socket.sendall(response)
     except BrokenPipeError:
         print(f"Error: Broken pipe when sending data to {address}")
     except Exception as e:
