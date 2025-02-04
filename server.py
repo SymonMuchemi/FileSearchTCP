@@ -5,8 +5,9 @@ import socket
 import concurrent.futures
 from typing import Tuple, Union
 from utils import parse_config_file
-from algorithms.naive import naive_search
-from algorithms.hash_based_search import hash_based_search
+# from algorithms.naive import naive_search
+# from algorithms.hash_based_search import hash_based_search
+from algorithms.mmap_search import mmap_search
 
 # Type alias for address (host: str, port: int)
 addr_type = Tuple[str, int]
@@ -74,7 +75,10 @@ def handle_client(
         # isLineFound: bool = naive_search(file_path, data)
 
         # Perform the search using the hash_based_algorithm
-        isLineFound: bool = hash_based_search(file_path, data)
+        # isLineFound: bool = hash_based_search(file_path, data)
+
+        # Perform the search using the hash_based_algorithm
+        isLineFound: bool = mmap_search(file_path, data)
 
         # Prepare the response based on the search result
         response: bytes = EXISTS if isLineFound else NOT_EXISTS
