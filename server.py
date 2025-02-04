@@ -8,7 +8,8 @@ from utils import parse_config_file
 # from algorithms.naive import naive_search
 # from algorithms.hash_based_search import hash_based_search
 # from algorithms.mmap_search import mmap_search
-from algorithms.trie_search import trie_search
+# from algorithms.trie_search import trie_search
+from algorithms.radix_search import radix_search
 
 # Type alias for address (host: str, port: int)
 addr_type = Tuple[str, int]
@@ -72,8 +73,8 @@ def handle_client(
             print("Error: 'linuxpath' must be a string.")
             return
 
-        # Perform the search using the hash_based_algorithm
-        isLineFound: bool = trie_search(file_path, data)
+        # Perform the search
+        isLineFound: bool = radix_search(file_path, data)
 
         # Prepare the response based on the search result
         response: bytes = EXISTS if isLineFound else NOT_EXISTS
