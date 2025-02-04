@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+""" Test cases for the utils module """
+
+
 import pytest
 from utils import parse_config_file
 
