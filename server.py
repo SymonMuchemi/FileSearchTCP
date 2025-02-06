@@ -5,11 +5,9 @@ import socket
 import concurrent.futures
 from typing import Tuple, Union
 from utils import parse_config_file
-# from algorithms.naive import naive_search
-# from algorithms.hash_based_search import hash_based_search
-# from algorithms.mmap_search import mmap_search
-# from algorithms.trie_search import trie_search
+from algorithms.mmap_search import mmap_search
 from algorithms.radix_search import radix_search
+from logger.logger import logger
 
 # Type alias for address (host: str, port: int)
 addr_type = Tuple[str, int]
@@ -43,12 +41,12 @@ def handle_client(
         BrokenPipeError: If there is an error sending data to the client.
         Exception: For any other exceptions that occur during processing.
     """
-    print(f"Connection established with: {address}")
+    logger.info(f"Connection established with: {address}")
 
     try:
         # Check if server configurations are missing
         if server_configurations is None:
-            print("Server configurations missing")
+            logger.debug("Server configurations missing")
             return None
 
         # Receive the data from the client
@@ -56,25 +54,31 @@ def handle_client(
 
         # If no data is received, print a message and return
         if not data:
-            print("No data received!")
+            logger.debug("No data received!")
             return
 
-        print(f"Data received: {data.decode('utf-8')}")
+        logger.info(f"Data received: {data.decode('utf-8')}")
 
         # Get the file path from server configurations
         file_path: path_type = server_configurations.get("linuxpath")
 
         if not file_path:
-            print("Error: 'linuxpath' not found in server configurations.")
+            logger.error("linuxpath' not found in server configurations.")
             return
 
         # Check if the file path is a string
         if not isinstance(file_path, str):
-            print("Error: 'linuxpath' must be a string.")
+            logger.critical("Error: 'linuxpath' must be a string.")
             return
-
+        
         # Perform the search
-        isLineFound: bool = radix_search(file_path, data)
+        isLineFound: bool = False
+        
+        if server_configurations.get('REAREAD_ON_QUERY'):
+            isLineFound = mmap_search(file_path, data)
+        else:
+            isLineFound = radix_search(file_path, data)
+
 
         # Prepare the response based on the search result
         response: bytes = EXISTS if isLineFound else NOT_EXISTS
@@ -82,12 +86,12 @@ def handle_client(
         # Send the response to the client
         client_socket.sendall(response)
     except BrokenPipeError:
-        print(f"Error: Broken pipe when sending data to {address}")
+        logger.error(f"Error: Broken pipe when sending data to {address}")
     except Exception as e:
-        print(f"Error at handle client: {e}")
+        logger.error(f"Error at handle client: {e}")
     finally:
         client_socket.close()
-        print(f"Connection with {address} closed")
+        logger.info(f"Connection with {address} closed")
 
 
 def start_server_with_threading() -> None:
@@ -113,7 +117,7 @@ def start_server_with_threading() -> None:
     """
     try:
         if not server_configurations:
-            print("Server configurations missing")
+            logger.debug("Server configurations missing")
             return
 
         # Extract server address and payload size from configurations
@@ -131,12 +135,12 @@ def start_server_with_threading() -> None:
         server_socket.bind(server_address)
         server_socket.listen()
 
-        print("Listening for connections")
+        logger.info("Listening for connections")
 
         # Use a thread pool to handle client connections
         with concurrent.futures.ThreadPoolExecutor() as executor:
             while True:
-                print("Waiting for a client to connect...")
+                logger.info("Waiting for a client to connect...")
                 client_socket: socket.socket
                 client_address: addr_type
 
@@ -145,7 +149,7 @@ def start_server_with_threading() -> None:
                 executor.submit(handle_client, client_socket, client_address)
 
     except Exception as e:
-        print(f"Error starting the server: {e}")
+        logger.error(f"Could not start server: {e}")
 
 
 if __name__ == "__main__":

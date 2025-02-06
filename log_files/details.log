@@ -1,0 +1,31 @@
+2025-02-06 16:36:40,922 - Filesearch_tcp - INFO - Listening for connections
+2025-02-06 16:36:40,924 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:36:54,171 - Filesearch_tcp - INFO - Connection established with: ('127.0.0.1', 55500)
+2025-02-06 16:36:54,171 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:36:54,172 - Filesearch_tcp - INFO - Data received: 6;0;1;16;0;7;3;0;
+2025-02-06 16:36:54,890 - Filesearch_tcp - ERROR - Connection with ('127.0.0.1', 55500) closed
+2025-02-06 16:37:08,720 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:37:08,720 - Filesearch_tcp - INFO - Connection established with: ('127.0.0.1', 33846)
+2025-02-06 16:37:08,720 - Filesearch_tcp - INFO - Data received: 6;0;1;16;0;7;3;0;
+2025-02-06 16:37:09,519 - Filesearch_tcp - ERROR - Connection with ('127.0.0.1', 33846) closed
+2025-02-06 16:37:13,101 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:37:13,102 - Filesearch_tcp - INFO - Connection established with: ('127.0.0.1', 46642)
+2025-02-06 16:37:13,102 - Filesearch_tcp - INFO - Data received: 6;0;1;16;0;7
+2025-02-06 16:37:13,908 - Filesearch_tcp - ERROR - Connection with ('127.0.0.1', 46642) closed
+2025-02-06 16:37:28,364 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:37:28,364 - Filesearch_tcp - INFO - Connection established with: ('127.0.0.1', 55060)
+2025-02-06 16:37:28,364 - Filesearch_tcp - INFO - Data received: Should be visible in a .log file
+2025-02-06 16:37:29,184 - Filesearch_tcp - ERROR - Connection with ('127.0.0.1', 55060) closed
+2025-02-06 16:38:56,860 - Filesearch_tcp - INFO - Listening for connections
+2025-02-06 16:38:56,862 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:39:23,350 - Filesearch_tcp - INFO - Connection established with: ('127.0.0.1', 41154)
+2025-02-06 16:39:23,350 - Filesearch_tcp - INFO - Data received: Should be visible in a .log file
+2025-02-06 16:39:23,350 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:39:24,163 - Filesearch_tcp - INFO - Connection with ('127.0.0.1', 41154) closed
+2025-02-06 16:44:31,586 - Filesearch_tcp - INFO - Listening for connections
+2025-02-06 16:44:31,587 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:44:42,305 - Filesearch_tcp - INFO - Connection established with: ('127.0.0.1', 37054)
+2025-02-06 16:44:42,305 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:44:42,305 - Filesearch_tcp - INFO - Data received: Should be visible in a .log file
+2025-02-06 16:44:43,154 - Filesearch_tcp - INFO - Connection with ('127.0.0.1', 37054) closed
+2025-02-06 16:45:37,299 - Filesearch_tcp - ERROR - Could not start server: [Errno 98] Address already in use
