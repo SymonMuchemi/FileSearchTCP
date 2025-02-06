@@ -4,14 +4,14 @@
 
 ## Features
 
-- [] Multi-threaded TCP Server Handles unlimited concurrent connections.
-- [] Configurable File Path Reads the search file path from a configuration file.
-- [] Efficient String Search Finds exact string matches within large files (up to 250,000 rows).
-- [] Real-time File Updates Optional `REREAD_ON_QUERY` mode for dynamic file changes.
-- [] Optimized Performance Designed for low-latency execution.
-- [] Debug Logging Tracks search queries, IP addresses, execution time, and timestamps.
-- [] Security Focused Includes buffer overflow protection and SSL authentication.
-- [] Linux Service Support Runs as a system daemon.
+- [ ] Multi-threaded TCP Server Handles unlimited concurrent connections.
+- [ ] Configurable File Path Reads the search file path from a configuration file.
+- [ ] Efficient String Search Finds exact string matches within large files (up to 250,000 rows).
+- [ ] Real-time File Updates Optional `REREAD_ON_QUERY` mode for dynamic file changes.
+- [ ] Optimized Performance Designed for low-latency execution.
+- [ ] Debug Logging Tracks search queries, IP addresses, execution time, and timestamps.
+- [ ] Security Focused Includes buffer overflow protection and SSL authentication.
+- [ ] Linux Service Support Runs as a system daemon.
 
 ---
 
