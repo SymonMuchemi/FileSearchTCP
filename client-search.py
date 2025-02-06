@@ -17,7 +17,7 @@ def start_client() -> None:
     configs: config_type = parse_config_file("./config/config.txt")
 
     if not configs:
-        print("Server configurations missing")
+        print("Start client: server configurations missing")
         return
 
     # Extract server address and payload size from configurations
@@ -58,4 +58,5 @@ def start_client() -> None:
 
 
 if __name__ == "__main__":
-    start_client()
+    while True:
+        start_client()

@@ -17,7 +17,7 @@ path_type = str | int | None
 EXISTS: bytes = b"STRING EXISTS\n"
 NOT_EXISTS: bytes = b"STRING NOT FOUND\n"
 
-server_configurations: config_type = None
+server_configurations: config_type = parse_config_file("./config/config.txt")
 
 
 def handle_client(
@@ -115,9 +115,7 @@ def start_server_with_threading() -> None:
     Returns:
         None
     """
-    try:
-        server_configurations = parse_config_file("./config/config.txt")
-        
+    try:        
         if not server_configurations:
             logger.debug("Server configurations missing")
             return
