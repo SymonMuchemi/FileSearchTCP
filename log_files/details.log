@@ -29,3 +29,22 @@
 2025-02-06 16:44:42,305 - Filesearch_tcp - INFO - Data received: Should be visible in a .log file
 2025-02-06 16:44:43,154 - Filesearch_tcp - INFO - Connection with ('127.0.0.1', 37054) closed
 2025-02-06 16:45:37,299 - Filesearch_tcp - ERROR - Could not start server: [Errno 98] Address already in use
+2025-02-06 16:48:44,139 - Filesearch_tcp - INFO - Listening for connections
+2025-02-06 16:48:44,141 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:49:03,309 - Filesearch_tcp - INFO - Listening for connections
+2025-02-06 16:49:03,311 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:49:13,076 - Filesearch_tcp - INFO - Connection established with: ('127.0.0.1', 56432)
+2025-02-06 16:49:13,076 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:49:13,076 - Filesearch_tcp - INFO - Data received: Should be visible in a .log file
+2025-02-06 16:49:13,076 - Filesearch_tcp - ERROR - linuxpath' not found in server configurations.
+2025-02-06 16:49:13,077 - Filesearch_tcp - INFO - Connection with ('127.0.0.1', 56432) closed
+2025-02-06 16:50:48,502 - Filesearch_tcp - INFO - Listening for connections
+2025-02-06 16:50:48,503 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:51:05,305 - Filesearch_tcp - INFO - Connection established with: ('127.0.0.1', 44078)
+2025-02-06 16:51:05,305 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:51:05,305 - Filesearch_tcp - DEBUG - Server configurations missing
+2025-02-06 16:51:05,305 - Filesearch_tcp - INFO - Connection with ('127.0.0.1', 44078) closed
+2025-02-06 16:52:22,950 - Filesearch_tcp - INFO - Waiting for a client to connect...
+2025-02-06 16:52:22,950 - Filesearch_tcp - INFO - Connection established with: ('127.0.0.1', 56568)
+2025-02-06 16:52:22,950 - Filesearch_tcp - DEBUG - Server configurations missing
+2025-02-06 16:52:22,950 - Filesearch_tcp - INFO - Connection with ('127.0.0.1', 56568) closed

@@ -3,6 +3,7 @@
 
 
 from typing import Tuple, Union
+from logger.logger import logger
 
 addr_type = Tuple[str, int]
 
@@ -58,10 +59,10 @@ def parse_config_file(file_path: str) -> dict[str, Union[str, int]] | None:
 
             return configurations
     except FileNotFoundError:
-        print(f"Error: Configuration file '{file_path}' not found.")
+        logger.debug(f"Error: Configuration file '{file_path}' not found.")
         return None
     except Exception as e:
-        print(f"Error parsing the configuration file: {e}")
+        logger.debug(f"Error parsing the configuration file: {e}")
         return None
 
     return None
