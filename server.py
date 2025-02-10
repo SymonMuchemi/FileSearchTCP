@@ -2,6 +2,8 @@
 """ Server """
 
 import socket
+import time
+import ssl
 import concurrent.futures
 from typing import Tuple, Union
 from utils import parse_config_file
@@ -42,8 +44,10 @@ def handle_client(
         Exception: For any other exceptions that occur during processing.
     """
     logger.info(f"Connection established with: {address}")
-
+    start_time = time.time()
+    
     try:
+        
         # Check if server configurations are missing
         if server_configurations is None:
             logger.debug("Server configurations missing")
@@ -79,7 +83,6 @@ def handle_client(
         else:
             isLineFound = radix_search(file_path, data)
 
-
         # Prepare the response based on the search result
         response: bytes = EXISTS if isLineFound else NOT_EXISTS
 
@@ -90,8 +93,9 @@ def handle_client(
     except Exception as e:
         logger.error(f"Error at handle client: {e}")
     finally:
+        execution_time = time.time() - start_time
         client_socket.close()
-        logger.info(f"Connection with {address} closed")
+        logger.info(f"Connection with {address} closed, Execution Time: {execution_time:.4f} seconds")
 
 
 def start_server_with_threading() -> None:
@@ -120,6 +124,8 @@ def start_server_with_threading() -> None:
             logger.debug("Server configurations missing")
             return
 
+        PAYLOAD_SIZE = server_configurations.get("PAYLOAD_SIZE")
+
         # Extract server address and payload size from configurations
         server_address = (
             server_configurations.get("HOST"),
@@ -135,7 +141,12 @@ def start_server_with_threading() -> None:
         server_socket.bind(server_address)
         server_socket.listen()
 
-        logger.info("Listening for connections")
+        logger.info("Listening for connections...")
+        
+        # Wrap the socket with SSL
+        context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+        context.load_cert_chain(certfile='./server.crt', keyfile='./server.key')
+        server_socket = context.wrap_socket(server_socket, server_side=True)
 
         # Use a thread pool to handle client connections
         with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -146,7 +157,7 @@ def start_server_with_threading() -> None:
 
                 # Accept a new client connection
                 client_socket, client_address = server_socket.accept()
-                executor.submit(handle_client, client_socket, client_address)
+                executor.submit(handle_client, client_socket, client_address, PAYLOAD_SIZE)
 
     except Exception as e:
         logger.error(f"Could not start server: {e}")
